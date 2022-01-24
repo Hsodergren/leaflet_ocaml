@@ -1,2 +1,2 @@
 # leaflet_ocaml
-leaflet bindings for ocaml
+Leaflet bindings for ocaml
