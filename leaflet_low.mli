@@ -75,17 +75,6 @@ module LocationEvent : sig
   val timestamp : t -> float [@@js.get]
 end
 
-(* module Evt : sig *)
-(*   type 'a t = *)
-(*     | Click : MouseEvent.t t [@js "click"] *)
-(*     | DblClick : MouseEvent.t t [@js "dblclick"] *)
-(*     | LocationFound : LocationEvent.t t [@js "locationfound"] *)
-(*   [@@js.sum] *)
-
-(*   (\* val t_to_js : ('a -> Ojs.t) -> 'a t -> Ojs.t *\) *)
-(*   (\* val t_of_js : (Ojs.t -> 'a) -> Ojs.t -> 'a t *\) *)
-(* end *)
-
 module Evented : sig
   type 'a t = 'a evented
 
