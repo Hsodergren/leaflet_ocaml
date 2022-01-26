@@ -79,7 +79,13 @@ module Evented : sig
   val on : 'a Evt.t -> ('a -> unit) -> 'b t -> unit
 end
 
-module rec Map : sig
+module Layer : sig
+  type 'a t = 'a Leaflet_low.Layer.t
+
+  val remove : 'a t -> unit
+end
+
+module Map : sig
   type t = Leaflet_low.Map.t
 
   module Options : sig
@@ -98,14 +104,9 @@ module rec Map : sig
   val add_layer : 'a Layer.t -> t -> unit
   val set_view : pos:LatLng.t -> zoom:Zoom.t -> t -> unit
   val fly_to : LatLng.t -> Zoom.t -> t -> unit
-end
-
-and Layer : sig
-  type 'a t = 'a Leaflet_low.Layer.t
-
-  val add_to : map:Map.t -> 'a t -> unit
-  val remove : 'a t -> unit
-  val remove_from : 'a t -> Map.t -> unit
+  val pan_to : LatLng.t -> Zoom.t -> t -> unit
+  val center : t -> LatLng.t
+  val zoom : t -> int
 end
 
 (* module LayerEvent : sig *)

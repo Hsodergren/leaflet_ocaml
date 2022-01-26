@@ -70,26 +70,13 @@ module Evented = struct
     | Move -> a @@ to_unitevt f
 end
 
-module rec Map : sig
-  type t = LL.Map.t
+module Layer = struct
+  type 'a t = 'a LL.Layer.t
 
-  module Options : sig
-    type t
+  let remove = LL.Layer.remove
+end
 
-    val v :
-      ?zoom:Zoom.t ->
-      ?center:LatLng.t ->
-      ?zoomControl:bool ->
-      ?dragging:bool ->
-      unit ->
-      t
-  end
-
-  val map : ?options:Options.t -> string -> t
-  val add_layer : 'a Layer.t -> t -> unit
-  val set_view : pos:LatLng.t -> zoom:Zoom.t -> t -> unit
-  val fly_to : LatLng.t -> Zoom.t -> t -> unit
-end = struct
+module Map = struct
   type t = LL.Map.t
 
   module Options = struct
@@ -106,20 +93,9 @@ end = struct
   let add_layer layer map = LL.Map.add_layer map layer
   let set_view ~pos ~zoom map = LL.Map.set_view map pos zoom
   let fly_to pos zoom map = LL.Map.fly_to map pos zoom
-end
-
-and Layer : sig
-  type 'a t = 'a LL.Layer.t
-
-  val add_to : map:Map.t -> 'a t -> unit
-  val remove : 'a t -> unit
-  val remove_from : 'a t -> Map.t -> unit
-end = struct
-  type 'a t = 'a LL.Layer.t
-
-  let add_to ~map t = LL.Layer.add_to t map
-  let remove = LL.Layer.remove
-  let remove_from = LL.Layer.remove_from
+  let pan_to pos zoom map = LL.Map.pan_to map pos zoom
+  let center = LL.Map.get_center
+  let zoom = LL.Map.get_zoom
 end
 
 module LayerEvent = LL.LayerEvent

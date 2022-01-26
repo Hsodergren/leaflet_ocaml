@@ -81,7 +81,16 @@ module Evented : sig
   val on : 'a t -> string -> (Ojs.t -> unit) -> unit [@@js.call]
 end
 
-module rec Map : sig
+module Layer : sig
+  type 'a t = 'a layer evented
+
+  val t_to_js : ('a -> Ojs.t) -> 'a t -> Ojs.t
+  val t_of_js : (Ojs.t -> 'a) -> Ojs.t -> 'a t
+  val remove : 'a t -> unit [@@js.call]
+end
+[@@js.scope "L"]
+
+module Map : sig
   type t = map evented
 
   val t_of_js : Ojs.t -> t
@@ -104,17 +113,9 @@ module rec Map : sig
   val add_layer : t -> 'a Layer.t -> unit [@@js.call]
   val set_view : t -> LatLng.t -> Zoom.t -> unit [@@js.call]
   val fly_to : t -> LatLng.t -> Zoom.t -> unit [@@js.call]
-end
-[@@js.scope "L"]
-
-and Layer : sig
-  type 'a t = 'a layer evented
-
-  val t_to_js : ('a -> Ojs.t) -> 'a t -> Ojs.t
-  val t_of_js : (Ojs.t -> 'a) -> Ojs.t -> 'a t
-  val add_to : 'a t -> Map.t -> unit [@@js.call]
-  val remove : 'a t -> unit [@@js.call]
-  val remove_from : 'a t -> Map.t -> unit [@@js.call]
+  val pan_to : t -> LatLng.t -> Zoom.t -> unit [@@js.call]
+  val get_center : t -> LatLng.t [@@js.call]
+  val get_zoom : t -> int [@@js.call]
 end
 [@@js.scope "L"]
 
