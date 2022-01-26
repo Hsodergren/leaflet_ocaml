@@ -39,15 +39,18 @@ module Evt = struct
     | Click : MouseEvent.t t
     | DblClick : MouseEvent.t t
     | Location : LocationEvent.t t
+    | Move : unit Event.t t
 
   let id : type a. a t -> string = function
     | Click -> "click"
     | DblClick -> "dblclick"
     | Location -> "location"
+    | Move -> "move"
 
   let click = Click
   let dblclick = DblClick
   let location = Location
+  let move = Move
 end
 
 module Evented = struct
@@ -55,6 +58,7 @@ module Evented = struct
 
   let to_mouseevt f ojs = f @@ MouseEvent.t_of_js ojs
   let to_locevt f ojs = f @@ LocationEvent.t_of_js ojs
+  let to_unitevt f ojs = f @@ Event.t_of_js Ojs.unit_of_js ojs
 
   let on : type a. a Evt.t -> (a -> unit) -> 'b t -> unit =
    fun evt f t ->
@@ -63,6 +67,7 @@ module Evented = struct
     | Click -> a @@ to_mouseevt f
     | DblClick -> a @@ to_mouseevt f
     | Location -> a @@ to_locevt f
+    | Move -> a @@ to_unitevt f
 end
 
 module rec Map : sig

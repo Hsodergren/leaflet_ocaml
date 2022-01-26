@@ -46,6 +46,8 @@ end
 module Event : sig
   type 'a t = 'a event
 
+  val t_to_js : ('a -> Ojs.t) -> 'a t -> Ojs.t
+  val t_of_js : (Ojs.t -> 'a) -> Ojs.t -> 'a t
   val type_ : 'a t -> string [@@js.get "type"]
 end
 
