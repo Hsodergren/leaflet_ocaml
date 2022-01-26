@@ -23,6 +23,10 @@ module LatLng : sig
 
   val v : ?alt:float -> float -> float -> t
   val distance_to : t -> t -> float
+  val equals : t -> t -> bool
+  val lat : t -> float
+  val lng : t -> float
+  val alt : t -> float option
 end
 
 module Icon : sig

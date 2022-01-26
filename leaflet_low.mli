@@ -24,8 +24,13 @@ end
 module LatLng : sig
   type t
 
-  val create : ?alt:float -> lat:float -> lon:float -> unit -> t [@@js.builder]
+  val create : float -> float -> t [@@js.new "latLng"]
+  val create_alt : float -> float -> float -> t [@@js.new "latLng"]
   val distance_to : t -> t -> float [@@js.call]
+  val lat : t -> float [@@js.get]
+  val lng : t -> float [@@js.get]
+  val alt : t -> float option [@@js.get]
+  val equals : t -> t -> bool [@@js.call]
 end
 [@@js.scope "L"]
 

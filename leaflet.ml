@@ -14,12 +14,16 @@ module Zoom = LL.Zoom
 module LatLng = struct
   type t = LL.LatLng.t
 
-  let v ?alt lat lon =
+  let v ?alt lat lng =
     match alt with
-    | None -> LL.LatLng.create ~lat ~lon ()
-    | Some alt -> LL.LatLng.create ~lat ~lon ~alt ()
+    | None -> LL.LatLng.create lat lng
+    | Some alt -> LL.LatLng.create_alt lat lng alt
 
   let distance_to = LL.LatLng.distance_to
+  let equals = LL.LatLng.equals
+  let lat = LL.LatLng.lat
+  let lng = LL.LatLng.lng
+  let alt = LL.LatLng.alt
 end
 
 module Point = struct
