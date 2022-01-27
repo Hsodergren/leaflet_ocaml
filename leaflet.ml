@@ -29,6 +29,8 @@ module LatLng = struct
   let alt = LL.LatLng.alt
 end
 
+module LatLngBounds = LL.LatLngBounds
+
 module Point = struct
   type t = LL.Point.t
 
@@ -125,6 +127,32 @@ module Polyline = struct
   let get_lat_lngs = LL.Polyline.get_lat_lngs
   let get_center = LL.Polyline.get_center
   let add_lat_lng pos t = LL.Polyline.add_lat_lng t pos
+end
+
+module CircleOptions = struct
+  type t = LL.CircleOptions.t
+
+  let v = LL.CircleOptions.create
+  let empty = v ()
+end
+
+module CircleMarker = struct
+  type 'a t = 'a LL.CircleMarker.t
+
+  let circle_marker ?(opts = CircleOptions.empty) pos =
+    LL.CircleMarker.circle_marker pos opts
+
+  let set_lat_lng pos t = LL.CircleMarker.set_lat_lng t pos
+  let get_lat_lng = LL.CircleMarker.get_lat_lng
+  let set_radius rad t = LL.CircleMarker.set_radius t rad
+  let get_radius = LL.CircleMarker.get_radius
+end
+
+module Circle = struct
+  type t = LL.Circle.t
+
+  let circle ?(opts = CircleOptions.empty) pos = LL.Circle.circle pos opts
+  let get_bounds = LL.Circle.get_bounds
 end
 
 module Map = struct

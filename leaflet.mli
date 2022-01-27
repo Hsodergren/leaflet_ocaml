@@ -32,6 +32,12 @@ module LatLng : sig
   val alt : t -> float option
 end
 
+module LatLngBounds : sig
+  type t
+
+  val lat_lng_bounds : LatLng.t -> LatLng.t -> t
+end
+
 module Icon : sig
   type t
 
@@ -144,6 +150,48 @@ module Polyline : sig
   val get_lat_lngs : 'a t -> LatLng.t list [@@js.call]
   val get_center : 'a t -> LatLng.t [@@js.call]
   val add_lat_lng : LatLng.t -> 'a t -> 'a t [@@js.call]
+end
+
+module CircleOptions : sig
+  type t
+
+  val v :
+    ?radius:float ->
+    ?stroke:bool ->
+    ?color:string ->
+    ?weight:int ->
+    ?opacity:float ->
+    ?line_cap:string ->
+    ?line_join:string ->
+    ?dash_array:string ->
+    ?dash_offset:string ->
+    ?fill:bool ->
+    ?fill_color:string ->
+    ?fill_opacity:float ->
+    ?fill_rule:string ->
+    ?smooth_factor:float ->
+    ?no_clip:bool ->
+    unit ->
+    t
+
+  val empty : t
+end
+
+module CircleMarker : sig
+  type 'a t = 'a Leaflet_low.CircleMarker.t
+
+  val circle_marker : ?opts:CircleOptions.t -> LatLng.t -> unit t
+  val set_lat_lng : LatLng.t -> 'a t -> 'a t
+  val get_lat_lng : 'a t -> LatLng.t
+  val set_radius : float -> 'a t -> 'a t
+  val get_radius : 'a t -> float
+end
+
+module Circle : sig
+  type t = Leaflet_low.Circle.t
+
+  val circle : ?opts:CircleOptions.t -> LatLng.t -> t
+  val get_bounds : t -> LatLngBounds.t
 end
 
 module Map : sig

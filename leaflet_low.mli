@@ -9,6 +9,8 @@ type marker
 type mouse
 type location
 type dragend
+type 'a circlemarker
+type circle
 
 val log : string -> unit [@@js.global "console.log"]
 
@@ -34,6 +36,13 @@ module LatLng : sig
   val lng : t -> float [@@js.get]
   val alt : t -> float option [@@js.get]
   val equals : t -> t -> bool [@@js.call]
+end
+[@@js.scope "L"]
+
+module LatLngBounds : sig
+  type t
+
+  val lat_lng_bounds : LatLng.t -> LatLng.t -> t [@@js.global]
 end
 [@@js.scope "L"]
 
@@ -146,6 +155,49 @@ module Polyline : sig
   val get_lat_lngs : 'a t -> LatLng.t list [@@js.call]
   val get_center : 'a t -> LatLng.t [@@js.call]
   val add_lat_lng : 'a t -> LatLng.t -> 'a t [@@js.call]
+end
+[@@js.scope "L"]
+
+module CircleOptions : sig
+  type t
+
+  val create :
+    ?radius:float ->
+    ?stroke:bool ->
+    ?color:string ->
+    ?weight:int ->
+    ?opacity:float ->
+    ?line_cap:string ->
+    ?line_join:string ->
+    ?dash_array:string ->
+    ?dash_offset:string ->
+    ?fill:bool ->
+    ?fill_color:string ->
+    ?fill_opacity:float ->
+    ?fill_rule:string ->
+    ?smooth_factor:float ->
+    ?no_clip:bool ->
+    unit ->
+    t
+    [@@js.builder]
+end
+
+module CircleMarker : sig
+  type 'a t = 'a circlemarker Path.t
+
+  val circle_marker : LatLng.t -> CircleOptions.t -> unit t [@@js.global]
+  val set_lat_lng : 'a t -> LatLng.t -> 'a t [@@js.call]
+  val get_lat_lng : 'a t -> LatLng.t [@@js.call]
+  val set_radius : 'a t -> float -> 'a t [@@js.call]
+  val get_radius : 'a t -> float [@@js.call]
+end
+[@@js.scope "L"]
+
+module Circle : sig
+  type t = circle CircleMarker.t
+
+  val circle : LatLng.t -> CircleOptions.t -> t [@@js.global]
+  val get_bounds : t -> LatLngBounds.t [@@js.call]
 end
 [@@js.scope "L"]
 
