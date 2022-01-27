@@ -130,6 +130,13 @@ module Polyline : sig
   end
 
   val polyline : LatLng.t list -> Options.t -> unit t [@@js.global]
+  val polygon : LatLng.t list -> Options.t -> unit t [@@js.global]
+  val rectangle : LatLng.t list -> Options.t -> unit t [@@js.global]
+  val set_lat_lngs : 'a t -> LatLng.t list -> 'a t [@@js.call]
+  val is_empty : 'a t -> bool [@@js.call]
+  val get_lat_lngs : 'a t -> LatLng.t list [@@js.call]
+  val get_center : 'a t -> LatLng.t [@@js.call]
+  val add_lat_lng : 'a t -> LatLng.t -> 'a t [@@js.call]
 end
 [@@js.scope "L"]
 

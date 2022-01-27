@@ -124,7 +124,14 @@ module Polyline : sig
     val empty : t
   end
 
-  val v : ?opts:Options.t -> LatLng.t list -> unit t
+  val line : ?opts:Options.t -> LatLng.t list -> unit t
+  val polygon : ?opts:Options.t -> LatLng.t list -> unit t [@@js.global]
+  val rectangle : ?opts:Options.t -> LatLng.t list -> unit t [@@js.global]
+  val set_lat_lngs : LatLng.t list -> 'a t -> 'a t [@@js.call]
+  val is_empty : 'a t -> bool [@@js.call]
+  val get_lat_lngs : 'a t -> LatLng.t list [@@js.call]
+  val get_center : 'a t -> LatLng.t [@@js.call]
+  val add_lat_lng : LatLng.t -> 'a t -> 'a t [@@js.call]
 end
 
 module Map : sig

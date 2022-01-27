@@ -94,7 +94,14 @@ module Polyline = struct
     let empty = v ()
   end
 
-  let v ?(opts = Options.empty) line = LL.Polyline.polyline line opts
+  let line ?(opts = Options.empty) line = LL.Polyline.polyline line opts
+  let polygon ?(opts = Options.empty) line = LL.Polyline.polygon line opts
+  let rectangle ?(opts = Options.empty) line = LL.Polyline.rectangle line opts
+  let set_lat_lngs pos t = LL.Polyline.set_lat_lngs t pos
+  let is_empty = LL.Polyline.is_empty
+  let get_lat_lngs = LL.Polyline.get_lat_lngs
+  let get_center = LL.Polyline.get_center
+  let add_lat_lng pos t = LL.Polyline.add_lat_lng t pos
 end
 
 module Map = struct
