@@ -1,6 +1,8 @@
 type 'a evented = 'a Leaflet_low.evented
 type 'a layer = 'a Leaflet_low.layer
 type 'a event = 'a Leaflet_low.event
+type 'a path = 'a Leaflet_low.path
+type 'a polyline = 'a Leaflet_low.polyline
 type map = Leaflet_low.map
 type tile = Leaflet_low.tile
 type marker = Leaflet_low.marker
@@ -87,6 +89,42 @@ module Layer : sig
   type 'a t = 'a Leaflet_low.Layer.t
 
   val remove : 'a t -> unit
+end
+
+module Path : sig
+  type 'a t = 'a path layer evented
+
+  val redraw : 'a t -> unit
+end
+
+module Polyline : sig
+  type 'a t = 'a Leaflet_low.Polyline.t
+
+  module Options : sig
+    type t
+
+    val v :
+      ?stroke:bool ->
+      ?color:string ->
+      ?weight:int ->
+      ?opacity:float ->
+      ?line_cap:string ->
+      ?line_join:string ->
+      ?dash_array:string ->
+      ?dash_offset:string ->
+      ?fill:bool ->
+      ?fill_color:string ->
+      ?fill_opacity:float ->
+      ?fill_rule:string ->
+      ?smooth_factor:float ->
+      ?no_clip:bool ->
+      unit ->
+      t
+
+    val empty : t
+  end
+
+  val v : ?opts:Options.t -> LatLng.t list -> unit t
 end
 
 module Map : sig

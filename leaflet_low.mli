@@ -1,6 +1,8 @@
 type 'a evented
 type 'a layer
 type 'a event
+type 'a path
+type 'a polyline
 type map
 type tile
 type marker
@@ -92,6 +94,42 @@ module Layer : sig
   val t_to_js : ('a -> Ojs.t) -> 'a t -> Ojs.t
   val t_of_js : (Ojs.t -> 'a) -> Ojs.t -> 'a t
   val remove : 'a t -> unit [@@js.call]
+end
+[@@js.scope "L"]
+
+module Path : sig
+  type 'a t = 'a path layer evented
+
+  val redraw : 'a t -> unit [@@js.call]
+end
+
+module Polyline : sig
+  type 'a t = 'a polyline Path.t
+
+  module Options : sig
+    type t
+
+    val create :
+      ?stroke:bool ->
+      ?color:string ->
+      ?weight:int ->
+      ?opacity:float ->
+      ?line_cap:string ->
+      ?line_join:string ->
+      ?dash_array:string ->
+      ?dash_offset:string ->
+      ?fill:bool ->
+      ?fill_color:string ->
+      ?fill_opacity:float ->
+      ?fill_rule:string ->
+      ?smooth_factor:float ->
+      ?no_clip:bool ->
+      unit ->
+      t
+      [@@js.builder]
+  end
+
+  val polyline : LatLng.t list -> Options.t -> unit t [@@js.global]
 end
 [@@js.scope "L"]
 

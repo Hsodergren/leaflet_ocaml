@@ -3,6 +3,8 @@ module LL = Leaflet_low
 type 'a evented = 'a LL.evented
 type 'a layer = 'a LL.layer
 type 'a event = 'a LL.event
+type 'a path = 'a Leaflet_low.path
+type 'a polyline = 'a Leaflet_low.polyline
 type map = LL.map
 type tile = LL.tile
 type marker = LL.marker
@@ -78,6 +80,21 @@ module Layer = struct
   type 'a t = 'a LL.Layer.t
 
   let remove = LL.Layer.remove
+end
+
+module Path = LL.Path
+
+module Polyline = struct
+  type 'a t = 'a LL.Polyline.t
+
+  module Options = struct
+    type t = LL.Polyline.Options.t
+
+    let v = LL.Polyline.Options.create
+    let empty = v ()
+  end
+
+  let v ?(opts = Options.empty) line = LL.Polyline.polyline line opts
 end
 
 module Map = struct
