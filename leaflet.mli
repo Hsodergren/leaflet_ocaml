@@ -102,6 +102,8 @@ module Map : sig
       ?dragging:bool ->
       unit ->
       t
+
+    val empty : t
   end
 
   val map : ?opts:Options.t -> string -> t
@@ -121,16 +123,21 @@ end
 
 module Marker : sig
   type t = Leaflet_low.Marker.t
-  type opts
 
-  val opts :
-    ?keyboard:bool ->
-    ?title:string ->
-    ?alt:string ->
-    ?opacity:float ->
-    ?icon:Icon.t ->
-    unit ->
-    opts
+  module Options : sig
+    type t
 
-  val v : ?options:opts -> LatLng.t -> t
+    val v :
+      ?keyboard:bool ->
+      ?title:string ->
+      ?alt:string ->
+      ?opacity:float ->
+      ?icon:Icon.t ->
+      unit ->
+      t
+
+    val empty : t
+  end
+
+  val v : ?opts:Options.t -> LatLng.t -> t
 end

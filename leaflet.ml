@@ -87,13 +87,10 @@ module Map = struct
     type t = LL.Map.Options.t
 
     let v = LL.Map.Options.create
+    let empty = v ()
   end
 
-  let map ?options id =
-    match options with
-    | Some opts -> LL.Map.map id opts
-    | None -> LL.Map.map id (LL.Map.Options.create ())
-
+  let map ?(opts = Options.empty) id = LL.Map.map id opts
   let add_layer layer map = LL.Map.add_layer map layer
   let set_view ~pos ~zoom map = LL.Map.set_view map pos zoom
   let fly_to pos zoom map = LL.Map.fly_to map pos zoom
@@ -107,12 +104,13 @@ module TileLayer = LL.TileLayer
 
 module Marker = struct
   type t = LL.Marker.t
-  type opts = LL.Marker.options
 
-  let opts = LL.Marker.opts
+  module Options = struct
+    type t = LL.Marker.options
 
-  let v ?options latlng =
-    match options with
-    | None -> LL.Marker.marker latlng (opts ())
-    | Some options -> LL.Marker.marker latlng options
+    let v = LL.Marker.opts
+    let empty = v ()
+  end
+
+  let v ?(opts = Options.empty) latlng = LL.Marker.marker latlng opts
 end
