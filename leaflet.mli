@@ -178,6 +178,12 @@ module Marker : sig
       ?alt:string ->
       ?opacity:float ->
       ?icon:Icon.t ->
+      ?draggable:bool ->
+      ?rise_on_hover:bool ->
+      ?rise_offset:bool ->
+      ?pane:string ->
+      ?shadow_pane:string ->
+      ?bubbling_mouse_events:bool ->
       unit ->
       t
 

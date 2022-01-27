@@ -130,9 +130,9 @@ module Marker = struct
   type t = LL.Marker.t
 
   module Options = struct
-    type t = LL.Marker.options
+    type t = LL.Marker.Options.t
 
-    let v = LL.Marker.opts
+    let v = LL.Marker.Options.create
     let empty = v ()
   end
 

@@ -184,18 +184,27 @@ end
 
 module Marker : sig
   type t = marker layer evented
-  type options
 
-  val opts :
-    ?keyboard:bool ->
-    ?title:string ->
-    ?alt:string ->
-    ?opacity:float ->
-    ?icon:Icon.t ->
-    unit ->
-    options
-    [@@js.builder]
+  module Options : sig
+    type t
 
-  val marker : LatLng.t -> options -> t [@@js.global]
+    val create :
+      ?keyboard:bool ->
+      ?title:string ->
+      ?alt:string ->
+      ?opacity:float ->
+      ?icon:Icon.t ->
+      ?draggable:bool ->
+      ?rise_on_hover:bool ->
+      ?rise_offset:bool ->
+      ?pane:string ->
+      ?shadow_pane:string ->
+      ?bubbling_mouse_events:bool ->
+      unit ->
+      t
+      [@@js.builder]
+  end
+
+  val marker : LatLng.t -> Options.t -> t [@@js.global]
 end
 [@@js.scope "L"]
