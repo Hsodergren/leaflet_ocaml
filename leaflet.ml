@@ -52,7 +52,7 @@ module Evt = struct
     | MoveEnd : unit Event.t t
     | DragStart : unit Event.t t
     | Drag : unit Event.t t
-    | DragEnd : dragend Event.t t
+    | DragEnd : DragendEvent.t t
 
   let id : type a. a t -> string = function
     | Click -> "click"

@@ -88,7 +88,7 @@ module Evt : sig
   val moveend : unit Event.t t
   val dragstart : unit Event.t t
   val drag : unit Event.t t
-  val dragend : unit Event.t t
+  val dragend : DragendEvent.t t
 end
 
 module Evented : sig
