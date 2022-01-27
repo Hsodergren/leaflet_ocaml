@@ -8,6 +8,7 @@ type tile
 type marker
 type mouse
 type location
+type dragend
 
 val log : string -> unit [@@js.global "console.log"]
 
@@ -66,6 +67,14 @@ module MouseEvent : sig
   val latlng : t -> LatLng.t [@@js.get]
   val layer_point : t -> Point.t [@@js.get]
   val container_point : t -> Point.t [@@js.get]
+end
+
+module DragendEvent : sig
+  type t = dragend event
+
+  val t_of_js : Ojs.t -> t
+  val t_to_js : t -> Ojs.t
+  val distance : t -> float [@@js.get]
 end
 
 module LocationEvent : sig

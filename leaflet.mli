@@ -8,6 +8,7 @@ type tile = Leaflet_low.tile
 type marker = Leaflet_low.marker
 type mouse = Leaflet_low.mouse
 type location = Leaflet_low.location
+type dragend = Leaflet_low.dragend
 
 module Zoom : sig
   type t = int
@@ -58,6 +59,12 @@ module MouseEvent : sig
   val container_point : t -> Point.t
 end
 
+module DragendEvent : sig
+  type t = dragend event
+
+  val distance : t -> float
+end
+
 module LocationEvent : sig
   type t = location event
 
@@ -76,7 +83,12 @@ module Evt : sig
   val click : MouseEvent.t t
   val dblclick : MouseEvent.t t
   val location : LocationEvent.t t
+  val movestart : unit Event.t t
   val move : unit Event.t t
+  val moveend : unit Event.t t
+  val dragstart : unit Event.t t
+  val drag : unit Event.t t
+  val dragend : unit Event.t t
 end
 
 module Evented : sig

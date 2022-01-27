@@ -10,6 +10,7 @@ type tile = LL.tile
 type marker = LL.marker
 type mouse = LL.mouse
 type location = LL.location
+type dragend = LL.dragend
 
 module Zoom = LL.Zoom
 
@@ -38,6 +39,7 @@ end
 module Icon = LL.Icon
 module Event = LL.Event
 module MouseEvent = LL.MouseEvent
+module DragendEvent = LL.DragendEvent
 module LocationEvent = LL.LocationEvent
 
 module Evt = struct
@@ -45,18 +47,33 @@ module Evt = struct
     | Click : MouseEvent.t t
     | DblClick : MouseEvent.t t
     | Location : LocationEvent.t t
+    | MoveStart : unit Event.t t
     | Move : unit Event.t t
+    | MoveEnd : unit Event.t t
+    | DragStart : unit Event.t t
+    | Drag : unit Event.t t
+    | DragEnd : dragend Event.t t
 
   let id : type a. a t -> string = function
     | Click -> "click"
     | DblClick -> "dblclick"
     | Location -> "location"
+    | MoveStart -> "movestart"
     | Move -> "move"
+    | MoveEnd -> "moveend"
+    | DragStart -> "dragstart"
+    | Drag -> "drag"
+    | DragEnd -> "dragend"
 
   let click = Click
   let dblclick = DblClick
   let location = Location
+  let movestart = MoveStart
   let move = Move
+  let moveend = MoveEnd
+  let dragstart = DragStart
+  let drag = Drag
+  let dragend = DragEnd
 end
 
 module Evented = struct
@@ -65,6 +82,7 @@ module Evented = struct
   let to_mouseevt f ojs = f @@ MouseEvent.t_of_js ojs
   let to_locevt f ojs = f @@ LocationEvent.t_of_js ojs
   let to_unitevt f ojs = f @@ Event.t_of_js Ojs.unit_of_js ojs
+  let to_dragendevt f ojs = f @@ DragendEvent.t_of_js ojs
 
   let on : type a. a Evt.t -> (a -> unit) -> 'b t -> unit =
    fun evt f t ->
@@ -73,7 +91,12 @@ module Evented = struct
     | Click -> a @@ to_mouseevt f
     | DblClick -> a @@ to_mouseevt f
     | Location -> a @@ to_locevt f
+    | MoveStart -> a @@ to_unitevt f
     | Move -> a @@ to_unitevt f
+    | MoveEnd -> a @@ to_unitevt f
+    | DragStart -> a @@ to_unitevt f
+    | Drag -> a @@ to_unitevt f
+    | DragEnd -> a @@ to_dragendevt f
 end
 
 module Layer = struct
