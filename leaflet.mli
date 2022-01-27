@@ -104,11 +104,11 @@ module Map : sig
       t
   end
 
-  val map : ?options:Options.t -> string -> t
-  val add_layer : 'a Layer.t -> t -> unit
-  val set_view : pos:LatLng.t -> zoom:Zoom.t -> t -> unit
-  val fly_to : LatLng.t -> Zoom.t -> t -> unit
-  val pan_to : LatLng.t -> Zoom.t -> t -> unit
+  val map : ?opts:Options.t -> string -> t
+  val add_layer : 'a Layer.t -> t -> t
+  val set_view : pos:LatLng.t -> zoom:Zoom.t -> t -> t
+  val fly_to : LatLng.t -> Zoom.t -> t -> t
+  val pan_to : LatLng.t -> Zoom.t -> t -> t
   val center : t -> LatLng.t
   val zoom : t -> int
 end

@@ -115,10 +115,10 @@ module Map : sig
   end
 
   val map : string -> Options.t -> t [@@js.global]
-  val add_layer : t -> 'a Layer.t -> unit [@@js.call]
-  val set_view : t -> LatLng.t -> Zoom.t -> unit [@@js.call]
-  val fly_to : t -> LatLng.t -> Zoom.t -> unit [@@js.call]
-  val pan_to : t -> LatLng.t -> Zoom.t -> unit [@@js.call]
+  val add_layer : t -> 'a Layer.t -> t [@@js.call]
+  val set_view : t -> LatLng.t -> Zoom.t -> t [@@js.call]
+  val fly_to : t -> LatLng.t -> Zoom.t -> t [@@js.call]
+  val pan_to : t -> LatLng.t -> Zoom.t -> t [@@js.call]
   val get_center : t -> LatLng.t [@@js.call]
   val get_zoom : t -> int [@@js.call]
 end
