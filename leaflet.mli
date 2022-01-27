@@ -113,12 +113,6 @@ module Map : sig
   val zoom : t -> int
 end
 
-(* module LayerEvent : sig *)
-(*   type t *)
-
-(*   val layer : t -> 'a Layer.t *)
-(* end *)
-
 module TileLayer : sig
   type t = Leaflet_low.TileLayer.t
 
