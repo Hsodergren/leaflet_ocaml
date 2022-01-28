@@ -88,6 +88,7 @@ module Evt : sig
 
   val click : MouseEvent.t t
   val dblclick : MouseEvent.t t
+  val mousemove : MouseEvent.t t
   val location : LocationEvent.t t
   val movestart : unit Event.t t
   val move : unit Event.t t

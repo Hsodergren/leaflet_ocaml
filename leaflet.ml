@@ -48,6 +48,7 @@ module Evt = struct
   type 'a t =
     | Click : MouseEvent.t t
     | DblClick : MouseEvent.t t
+    | MouseMove : MouseEvent.t t
     | Location : LocationEvent.t t
     | MoveStart : unit Event.t t
     | Move : unit Event.t t
@@ -59,6 +60,7 @@ module Evt = struct
   let id : type a. a t -> string = function
     | Click -> "click"
     | DblClick -> "dblclick"
+    | MouseMove -> "mousemove"
     | Location -> "location"
     | MoveStart -> "movestart"
     | Move -> "move"
@@ -69,6 +71,7 @@ module Evt = struct
 
   let click = Click
   let dblclick = DblClick
+  let mousemove = MouseMove
   let location = Location
   let movestart = MoveStart
   let move = Move
@@ -92,6 +95,7 @@ module Evented = struct
     match evt with
     | Click -> a @@ to_mouseevt f
     | DblClick -> a @@ to_mouseevt f
+    | MouseMove -> a @@ to_mouseevt f
     | Location -> a @@ to_locevt f
     | MoveStart -> a @@ to_unitevt f
     | Move -> a @@ to_unitevt f
