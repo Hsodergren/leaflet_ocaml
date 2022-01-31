@@ -13,8 +13,6 @@ type dragend
 type 'a circlemarker
 type circle
 
-val log : string -> unit [@@js.global "console.log"]
-
 module Zoom : sig
   type t = int
 end
