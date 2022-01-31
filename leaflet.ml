@@ -6,7 +6,7 @@ type 'a event = 'a LL.event
 type 'a path = 'a Leaflet_low.path
 type 'a polyline = 'a Leaflet_low.polyline
 type map = LL.map
-type tile = LL.tile
+type 'a tile = 'a LL.tile
 type marker = LL.marker
 type mouse = LL.mouse
 type location = LL.location
@@ -179,7 +179,19 @@ module Map = struct
 end
 
 module LayerEvent = LL.LayerEvent
-module TileLayer = LL.TileLayer
+
+module TileLayer = struct
+  type 'a t = 'a LL.TileLayer.t
+
+  module Options = struct
+    type t = LL.TileLayer.Options.t
+
+    let v = LL.TileLayer.Options.create
+    let empty = v ()
+  end
+
+  let v ?(opts = Options.empty) url = LL.TileLayer.tile_layer url opts
+end
 
 module Marker = struct
   type t = LL.Marker.t

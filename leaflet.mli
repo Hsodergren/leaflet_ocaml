@@ -4,7 +4,7 @@ type 'a event = 'a Leaflet_low.event
 type 'a path = 'a Leaflet_low.path
 type 'a polyline = 'a Leaflet_low.polyline
 type map = Leaflet_low.map
-type tile = Leaflet_low.tile
+type 'a tile = 'a Leaflet_low.tile
 type marker = Leaflet_low.marker
 type mouse = Leaflet_low.mouse
 type location = Leaflet_low.location
@@ -222,9 +222,28 @@ module Map : sig
 end
 
 module TileLayer : sig
-  type t = Leaflet_low.TileLayer.t
+  type 'a t = 'a Leaflet_low.TileLayer.t
 
-  val tile_layer : string -> t
+  module Options : sig
+    type t
+
+    val v :
+      ?min_zoom:Zoom.t ->
+      ?max_zoom:Zoom.t ->
+      ?subdomains:string list ->
+      ?error_tile_url:string ->
+      ?zoom_offset:Zoom.t ->
+      ?tms:bool ->
+      ?zoom_reverse:bool ->
+      ?detect_retina:bool ->
+      ?cross_origin:string ->
+      unit ->
+      t
+
+    val empty : t
+  end
+
+  val v : ?opts:Options.t -> string -> unit t
 end
 
 module Marker : sig

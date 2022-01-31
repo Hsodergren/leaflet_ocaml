@@ -4,7 +4,7 @@ type 'a event
 type 'a path
 type 'a polyline
 type map
-type tile
+type 'a tile
 type marker
 type mouse
 type location
@@ -237,9 +237,27 @@ module LayerEvent : sig
 end
 
 module TileLayer : sig
-  type t = tile layer evented
+  type 'a t = 'a tile layer evented
 
-  val tile_layer : string -> t [@@js.global]
+  module Options : sig
+    type t
+
+    val create :
+      ?min_zoom:Zoom.t ->
+      ?max_zoom:Zoom.t ->
+      ?subdomains:string list ->
+      ?error_tile_url:string ->
+      ?zoom_offset:Zoom.t ->
+      ?tms:bool ->
+      ?zoom_reverse:bool ->
+      ?detect_retina:bool ->
+      ?cross_origin:string ->
+      unit ->
+      t
+      [@@js.builder]
+  end
+
+  val tile_layer : string -> Options.t -> 'a t [@@js.global]
 end
 [@@js.scope "L"]
 
