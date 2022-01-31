@@ -241,7 +241,7 @@ module WmsLayer : sig
     type t
 
     val v :
-      ?layers:string ->
+      layers:string ->
       ?styles:string ->
       ?format:string ->
       ?transparent:bool ->
@@ -258,11 +258,9 @@ module WmsLayer : sig
       ?cross_origin:string ->
       unit ->
       t
-
-    val empty : t
   end
 
-  val v : ?opts:Options.t -> string -> t
+  val v : opts:Options.t -> string -> t
 end
 
 module Marker : sig

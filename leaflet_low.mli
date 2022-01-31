@@ -267,7 +267,7 @@ module WmsLayer : sig
     type t
 
     val create :
-      ?layers:string ->
+      layers:string ->
       ?styles:string ->
       ?format:string ->
       ?transparent:bool ->
@@ -287,7 +287,7 @@ module WmsLayer : sig
       [@@js.builder]
   end
 
-  val wms : string -> Options.t -> t [@@js.global]
+  val wms : string -> Options.t -> t [@@js.global "tileLayer.wms"]
 end
 [@@js.scope "L"]
 
