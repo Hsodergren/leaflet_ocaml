@@ -6,6 +6,7 @@ type 'a polyline
 type map
 type 'a tile
 type marker
+type wms
 type mouse
 type location
 type dragend
@@ -258,6 +259,37 @@ module TileLayer : sig
   end
 
   val tile_layer : string -> Options.t -> 'a t [@@js.global]
+end
+[@@js.scope "L"]
+
+module WmsLayer : sig
+  type t = wms TileLayer.t
+
+  module Options : sig
+    type t
+
+    val create :
+      ?layers:string ->
+      ?styles:string ->
+      ?format:string ->
+      ?transparent:bool ->
+      ?version:string ->
+      ?uppercase:bool ->
+      ?min_zoom:Zoom.t ->
+      ?max_zoom:Zoom.t ->
+      ?subdomains:string list ->
+      ?error_tile_url:string ->
+      ?zoom_offset:Zoom.t ->
+      ?tms:bool ->
+      ?zoom_reverse:bool ->
+      ?detect_retina:bool ->
+      ?cross_origin:string ->
+      unit ->
+      t
+      [@@js.builder]
+  end
+
+  val wms : string -> Options.t -> t [@@js.global]
 end
 [@@js.scope "L"]
 

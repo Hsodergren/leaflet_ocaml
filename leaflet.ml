@@ -193,6 +193,19 @@ module TileLayer = struct
   let v ?(opts = Options.empty) url = LL.TileLayer.tile_layer url opts
 end
 
+module WmsLayer = struct
+  type t = LL.WmsLayer.t
+
+  module Options = struct
+    type t = LL.WmsLayer.Options.t
+
+    let v = LL.WmsLayer.Options.create
+    let empty = v ()
+  end
+
+  let v ?(opts = Options.empty) url = LL.WmsLayer.wms url opts
+end
+
 module Marker = struct
   type t = LL.Marker.t
 

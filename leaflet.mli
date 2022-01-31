@@ -246,6 +246,37 @@ module TileLayer : sig
   val v : ?opts:Options.t -> string -> unit t
 end
 
+module WmsLayer : sig
+  type t = Leaflet_low.WmsLayer.t
+
+  module Options : sig
+    type t
+
+    val v :
+      ?layers:string ->
+      ?styles:string ->
+      ?format:string ->
+      ?transparent:bool ->
+      ?version:string ->
+      ?uppercase:bool ->
+      ?min_zoom:Zoom.t ->
+      ?max_zoom:Zoom.t ->
+      ?subdomains:string list ->
+      ?error_tile_url:string ->
+      ?zoom_offset:Zoom.t ->
+      ?tms:bool ->
+      ?zoom_reverse:bool ->
+      ?detect_retina:bool ->
+      ?cross_origin:string ->
+      unit ->
+      t
+
+    val empty : t
+  end
+
+  val v : ?opts:Options.t -> string -> t
+end
+
 module Marker : sig
   type t = Leaflet_low.Marker.t
 
