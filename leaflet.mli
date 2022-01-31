@@ -1,15 +1,3 @@
-type 'a evented = 'a Leaflet_low.evented
-type 'a layer = 'a Leaflet_low.layer
-type 'a event = 'a Leaflet_low.event
-type 'a path = 'a Leaflet_low.path
-type 'a polyline = 'a Leaflet_low.polyline
-type map = Leaflet_low.map
-type 'a tile = 'a Leaflet_low.tile
-type marker = Leaflet_low.marker
-type mouse = Leaflet_low.mouse
-type location = Leaflet_low.location
-type dragend = Leaflet_low.dragend
-
 module Zoom : sig
   type t = int
 end
@@ -52,13 +40,13 @@ module Icon : sig
 end
 
 module Event : sig
-  type 'a t = 'a event
+  type 'a t = 'a Leaflet_low.Event.t
 
   val type_ : 'a t -> string
 end
 
 module MouseEvent : sig
-  type t = mouse event
+  type t = Leaflet_low.MouseEvent.t
 
   val latlng : t -> LatLng.t
   val layer_point : t -> Point.t
@@ -66,13 +54,13 @@ module MouseEvent : sig
 end
 
 module DragendEvent : sig
-  type t = dragend event
+  type t = Leaflet_low.DragendEvent.t
 
   val distance : t -> float
 end
 
 module LocationEvent : sig
-  type t = location event
+  type t = Leaflet_low.LocationEvent.t
 
   val latlng : t -> LatLng.t
   val accuracy : t -> float
@@ -99,7 +87,7 @@ module Evt : sig
 end
 
 module Evented : sig
-  type 'a t = 'a Leaflet_low.evented
+  type 'a t = 'a Leaflet_low.Evented.t
 
   val on : 'a Evt.t -> ('a -> unit) -> 'b t -> unit
 end
@@ -111,7 +99,7 @@ module Layer : sig
 end
 
 module Path : sig
-  type 'a t = 'a path layer evented
+  type 'a t = 'a Leaflet_low.Path.t
 
   val redraw : 'a t -> unit
 end

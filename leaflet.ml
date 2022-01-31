@@ -1,17 +1,4 @@
 module LL = Leaflet_low
-
-type 'a evented = 'a LL.evented
-type 'a layer = 'a LL.layer
-type 'a event = 'a LL.event
-type 'a path = 'a Leaflet_low.path
-type 'a polyline = 'a Leaflet_low.polyline
-type map = LL.map
-type 'a tile = 'a LL.tile
-type marker = LL.marker
-type mouse = LL.mouse
-type location = LL.location
-type dragend = LL.dragend
-
 module Zoom = LL.Zoom
 
 module LatLng = struct
@@ -82,7 +69,7 @@ module Evt = struct
 end
 
 module Evented = struct
-  type 'a t = 'a LL.evented
+  type 'a t = 'a LL.Evented.t
 
   let to_mouseevt f ojs = f @@ MouseEvent.t_of_js ojs
   let to_locevt f ojs = f @@ LocationEvent.t_of_js ojs
