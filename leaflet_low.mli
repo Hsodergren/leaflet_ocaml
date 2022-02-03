@@ -49,7 +49,7 @@ module Icon : sig
   type t
 
   val create :
-    ?icon_url:string ->
+    icon_url:string ->
     ?icon_size:Point.t ->
     ?icon_anchor:Point.t ->
     ?shadow_url:string ->
