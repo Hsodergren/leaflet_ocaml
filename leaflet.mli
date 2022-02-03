@@ -216,6 +216,7 @@ module TileLayer : sig
     type t
 
     val v :
+      ?attribution:string ->
       ?min_zoom:Zoom.t ->
       ?max_zoom:Zoom.t ->
       ?subdomains:string list ->
@@ -247,6 +248,7 @@ module WmsLayer : sig
       ?transparent:bool ->
       ?version:string ->
       ?uppercase:bool ->
+      ?attribution:string ->
       ?min_zoom:Zoom.t ->
       ?max_zoom:Zoom.t ->
       ?subdomains:string list ->
