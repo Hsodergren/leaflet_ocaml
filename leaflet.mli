@@ -212,6 +212,10 @@ end
 module TileLayer : sig
   type 'a t = 'a Leaflet_low.TileLayer.t
 
+  module PreDefined : sig
+    val open_street_map : unit t
+  end
+
   module Options : sig
     type t
 

@@ -178,6 +178,16 @@ module TileLayer = struct
   end
 
   let v ?(opts = Options.empty) url = LL.TileLayer.tile_layer url opts
+
+  module PreDefined = struct
+    let open_street_map =
+      v "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        ~opts:
+          (Options.v
+             ~attribution:
+               {|&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors|}
+             ())
+  end
 end
 
 module WmsLayer = struct
@@ -187,10 +197,9 @@ module WmsLayer = struct
     type t = LL.WmsLayer.Options.t
 
     let v = LL.WmsLayer.Options.create
-    let empty = v ()
   end
 
-  let v ?(opts = Options.empty) url = LL.WmsLayer.wms url opts
+  let v ~opts url = LL.WmsLayer.wms url opts
 end
 
 module Marker = struct
